@@ -7,7 +7,6 @@ import Calendar from '@/components/Calendar'
 export default function CalendarPage() {
   const [appointments, setAppointments] = useState<Appointment[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null)
 
   useEffect(() => {
@@ -29,8 +28,7 @@ export default function CalendarPage() {
     }
   }
 
-  const handleDateSelect = (date: Date) => {
-    setSelectedDate(date)
+  const handleDateSelect = () => {
     setSelectedAppointment(null)
   }
 

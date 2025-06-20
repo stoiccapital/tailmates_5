@@ -1,19 +1,15 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { signIn, signUp } from '@/lib/auth'
 
 export default function Login() {
-  console.log('Login component loaded')
-  
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [isSignUp, setIsSignUp] = useState(false)
-  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -53,7 +49,7 @@ export default function Login() {
           setError('Anmeldung fehlgeschlagen. Keine Benutzerdaten erhalten.')
         }
       }
-    } catch (err) {
+    } catch {
       setError('Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.')
     } finally {
       setIsLoading(false)
@@ -84,15 +80,6 @@ export default function Login() {
             Praxis Management Software
           </p>
         </div>
-        
-        {/* Test button */}
-        <button 
-          type="button" 
-          onClick={() => alert('JavaScript is working!')}
-          className="mb-4 w-full bg-red-500 text-white p-2 rounded"
-        >
-          Test JavaScript
-        </button>
         
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
