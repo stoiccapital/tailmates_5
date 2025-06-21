@@ -211,7 +211,12 @@ export default function Dashboard() {
                     <div className="flex items-center">
                       <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
                         <span className="text-sm font-medium text-blue-600">
-                          {(patient?.first_name?.[0] || '') + (patient?.last_name?.[0] || '') || '?'}
+                          {(() => {
+                            const firstName = patient?.first_name || '';
+                            const lastName = patient?.last_name || '';
+                            const initials = (firstName.charAt(0) || '') + (lastName.charAt(0) || '');
+                            return initials || '?';
+                          })()}
                         </span>
                       </div>
                       <div className="ml-4">

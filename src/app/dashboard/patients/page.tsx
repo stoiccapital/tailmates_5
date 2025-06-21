@@ -21,9 +21,17 @@ export default function PatientsPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [showAddForm, setShowAddForm] = useState(false)
+  const [showEditForm, setShowEditForm] = useState(false)
+  const [editingPatient, setEditingPatient] = useState<AnimalPatient | null>(null)
   const [currentUser, setCurrentUser] = useState<User | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [newPatient, setNewPatient] = useState({
+    name: '',
+    birth_date: '',
+    animal_type: '',
+    notes: ''
+  })
+  const [editPatient, setEditPatient] = useState({
     name: '',
     birth_date: '',
     animal_type: '',
@@ -129,8 +137,56 @@ export default function PatientsPage() {
   }
 
   const handleEditPatient = (patient: AnimalPatient) => {
-    console.log('Editing patient:', patient)
-    // Here you would typically open an edit modal or navigate to edit page
+    setEditingPatient(patient)
+    setEditPatient({
+      name: patient.name,
+      birth_date: patient.birth_date,
+      animal_type: patient.animal_type,
+      notes: patient.notes || ''
+    })
+    setShowEditForm(true)
+  }
+
+  const handleUpdatePatient = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (!editingPatient) {
+      alert('No patient selected for editing')
+      return
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from('patients')
+        .update({
+          name: editPatient.name,
+          birth_date: editPatient.birth_date,
+          animal_type: editPatient.animal_type,
+          notes: editPatient.notes
+        })
+        .eq('id', editingPatient.id)
+        .select()
+      
+      if (error) {
+        console.error('Error updating patient:', error)
+        alert('Error updating patient. Please try again.')
+      } else {
+        console.log('Patient updated successfully:', data)
+        setShowEditForm(false)
+        setEditingPatient(null)
+        setEditPatient({
+          name: '',
+          birth_date: '',
+          animal_type: '',
+          notes: ''
+        })
+        // Reload patients after updating
+        loadPatients()
+      }
+    } catch (error) {
+      console.error('Error updating patient:', error)
+      alert('Error updating patient. Please try again.')
+    }
   }
 
   const handleDeletePatient = async (id: string) => {
@@ -305,6 +361,95 @@ export default function PatientsPage() {
                 className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 w-full sm:w-auto"
               >
                 Add Patient
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* Edit Patient Form */}
+      {showEditForm && editingPatient && (
+        <div className="bg-white rounded-lg shadow p-6">
+          <h2 className="text-lg font-medium text-gray-900 mb-4">Edit Patient: {editingPatient.name}</h2>
+          <form onSubmit={handleUpdatePatient} className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="edit-name" className="block text-sm font-medium text-gray-700">
+                  Name *
+                </label>
+                <input
+                  type="text"
+                  id="edit-name"
+                  required
+                  value={editPatient.name}
+                  onChange={(e) => setEditPatient({...editPatient, name: e.target.value})}
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
+                  placeholder="Patient's name"
+                />
+              </div>
+              <div>
+                <label htmlFor="edit-birth_date" className="block text-sm font-medium text-gray-700">
+                  Birth Date *
+                </label>
+                <input
+                  type="date"
+                  id="edit-birth_date"
+                  required
+                  value={editPatient.birth_date}
+                  onChange={(e) => setEditPatient({...editPatient, birth_date: e.target.value})}
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
+                />
+              </div>
+              <div className="md:col-span-2">
+                <label htmlFor="edit-animal_type" className="block text-sm font-medium text-gray-700">
+                  Animal Type *
+                </label>
+                <input
+                  type="text"
+                  id="edit-animal_type"
+                  required
+                  value={editPatient.animal_type}
+                  onChange={(e) => setEditPatient({...editPatient, animal_type: e.target.value})}
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
+                  placeholder="e.g., Dog, Cat, Horse, Bird"
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="edit-notes" className="block text-sm font-medium text-gray-700">
+                Notes
+              </label>
+              <textarea
+                id="edit-notes"
+                rows={3}
+                value={editPatient.notes}
+                onChange={(e) => setEditPatient({...editPatient, notes: e.target.value})}
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
+                placeholder="Additional notes about the patient..."
+              />
+            </div>
+            <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowEditForm(false)
+                  setEditingPatient(null)
+                  setEditPatient({
+                    name: '',
+                    birth_date: '',
+                    animal_type: '',
+                    notes: ''
+                  })
+                }}
+                className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 w-full sm:w-auto"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 w-full sm:w-auto"
+              >
+                Update Patient
               </button>
             </div>
           </form>
