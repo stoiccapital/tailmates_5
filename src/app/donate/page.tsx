@@ -54,21 +54,21 @@ export default function Donate() {
                     Select Amount
                   </label>
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                    {presetAmounts.map((amount) => (
+                    {presetAmounts?.map((amount) => (
                       <button
-                        key={amount.value}
+                        key={amount?.value || 'custom'}
                         type="button"
                         onClick={() => {
-                          setDonationAmount(amount.value)
+                          setDonationAmount(amount?.value || '')
                           setCustomAmount('')
                         }}
                         className={`p-4 border rounded-lg text-center transition-colors ${
-                          donationAmount === amount.value
+                          donationAmount === amount?.value
                             ? 'border-blue-500 bg-blue-50 text-blue-700'
                             : 'border-gray-300 hover:border-gray-400 text-gray-700'
                         }`}
                       >
-                        <span className="text-lg font-semibold">{amount.label}</span>
+                        <span className="text-lg font-semibold">{amount?.label || '$0'}</span>
                       </button>
                     ))}
                   </div>
@@ -242,8 +242,8 @@ export default function Donate() {
                 role: 'Clinic Administrator',
                 quote: 'The donation was worth every penny. The software has saved us countless hours and improved our patient care.'
               }
-            ].map((testimonial) => (
-              <div key={testimonial.name} className="bg-white rounded-lg p-6 shadow-sm">
+            ]?.map((testimonial, index) => (
+              <div key={testimonial?.name || index} className="bg-white rounded-lg p-6 shadow-sm">
                 <div className="flex items-center mb-4">
                   <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
                     <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
@@ -251,11 +251,11 @@ export default function Donate() {
                     </svg>
                   </div>
                   <div className="ml-3">
-                    <h4 className="text-sm font-medium text-gray-900">{testimonial.name}</h4>
-                    <p className="text-sm text-gray-500">{testimonial.role}</p>
+                    <h4 className="text-sm font-medium text-gray-900">{testimonial?.name || 'Anonymous'}</h4>
+                    <p className="text-sm text-gray-500">{testimonial?.role || 'Supporter'}</p>
                   </div>
                 </div>
-                <p className="text-gray-600 italic">"{testimonial.quote}"</p>
+                <p className="text-gray-600 italic">"{testimonial?.quote || 'Great software!'}"</p>
               </div>
             ))}
           </div>
