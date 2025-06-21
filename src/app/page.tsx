@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+// Updated for Vercel deployment - 2025-01-21
 export default function Home() {
   return (
     <div className="bg-white">
