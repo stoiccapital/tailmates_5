@@ -201,7 +201,7 @@ export default function Donate() {
               <div className="mt-8 bg-gray-50 rounded-lg p-6">
                 <h4 className="text-lg font-medium text-gray-900 mb-4">Transparency</h4>
                 <p className="text-gray-600 mb-4">
-                  We're committed to transparency in how we use your donations:
+                  We&apos;re committed to transparency in how we use your donations:
                 </p>
                 <div className="space-y-2 text-sm text-gray-600">
                   <div className="flex justify-between">
@@ -230,7 +230,7 @@ export default function Donate() {
               {
                 name: 'Dr. Sarah Johnson',
                 role: 'Family Physician',
-                quote: 'The software has transformed how I manage my practice. I\'m grateful for the open-source community that made this possible.'
+                quote: 'The software has transformed how I manage my practice. I&apos;m grateful for the open-source community that made this possible.'
               },
               {
                 name: 'Michael Chen',
@@ -255,7 +255,7 @@ export default function Donate() {
                     <p className="text-sm text-gray-500">{testimonial?.role || 'Supporter'}</p>
                   </div>
                 </div>
-                <p className="text-gray-600 italic">"{testimonial?.quote || 'Great software!'}"</p>
+                <p className="text-gray-600 italic">&ldquo;{testimonial?.quote || 'Great software!'}&rdquo;</p>
               </div>
             ))}
           </div>
