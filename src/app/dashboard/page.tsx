@@ -19,11 +19,18 @@ export default function Dashboard() {
     const loadDashboardData = async () => {
       try {
         // Load patients
-        const { data: patients } = await getPatients()
+        const { data: patients, error: patientsError } = await getPatients()
+        if (patientsError) {
+          console.error('Error loading patients:', patientsError)
+        }
         const recentPatientsData = patients?.slice(0, 5) || []
 
         // Load appointments
-        const { data: appointments } = await getAppointments()
+        const { data: appointments, error: appointmentsError } = await getAppointments()
+        if (appointmentsError) {
+          console.error('Error loading appointments:', appointmentsError)
+        }
+        
         const today = new Date().toDateString()
         const todayAppts = appointments?.filter(apt => 
           new Date(apt.start_time).toDateString() === today
@@ -48,6 +55,15 @@ export default function Dashboard() {
         setTodayAppointments(todayAppts)
       } catch (error) {
         console.error('Error loading dashboard data:', error)
+        // Set default values to prevent crashes
+        setStats({
+          totalPatients: 0,
+          todayAppointments: 0,
+          pendingAppointments: 0,
+          completedAppointments: 0
+        })
+        setRecentPatients([])
+        setTodayAppointments([])
       } finally {
         setIsLoading(false)
       }
@@ -57,10 +73,15 @@ export default function Dashboard() {
   }, [])
 
   const formatTime = (dateString: string) => {
-    return new Date(dateString).toLocaleTimeString('de-DE', {
-      hour: '2-digit',
-      minute: '2-digit'
-    })
+    try {
+      return new Date(dateString).toLocaleTimeString('de-DE', {
+        hour: '2-digit',
+        minute: '2-digit'
+      })
+    } catch (error) {
+      console.error('Error formatting time:', error)
+      return '--:--'
+    }
   }
 
   if (isLoading) {
@@ -190,19 +211,19 @@ export default function Dashboard() {
                     <div className="flex items-center">
                       <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
                         <span className="text-sm font-medium text-blue-600">
-                          {patient.first_name[0]}{patient.last_name[0]}
+                          {(patient?.first_name?.[0] || '') + (patient?.last_name?.[0] || '') || '?'}
                         </span>
                       </div>
                       <div className="ml-4">
                         <p className="font-medium text-gray-900">
-                          {patient.first_name} {patient.last_name}
+                          {patient?.first_name || 'Unknown'} {patient?.last_name || 'Patient'}
                         </p>
-                        <p className="text-sm text-gray-600">{patient.email}</p>
+                        <p className="text-sm text-gray-600">{patient?.email || 'No email'}</p>
                       </div>
                     </div>
                     <div className="text-right">
                       <p className="text-sm text-gray-500">
-                        {new Date(patient.created_at).toLocaleDateString('de-DE')}
+                        {patient?.created_at ? new Date(patient.created_at).toLocaleDateString('de-DE') : 'Unknown date'}
                       </p>
                     </div>
                   </div>
