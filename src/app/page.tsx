@@ -4,48 +4,111 @@ export default function Home() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-            <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-              <div className="sm:text-center lg:text-left">
-                <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+      <div className="relative overflow-hidden bg-gray-50 py-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              {/* Left side - Text content */}
+              <div className="text-left">
+                <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl mb-6">
                   <span className="block xl:inline">Praxis Management</span>{' '}
                   <span className="block text-blue-600 xl:inline">Software</span>
                 </h1>
-                <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg md:mt-5 md:text-xl mb-8">
                   Professionelle Praxisverwaltung für Ärzte und medizinisches Personal. 
                   Verwalten Sie Patienten, Termine, Dokumente und mehr - alles an einem Ort.
                 </p>
-                <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                  <div className="rounded-md shadow">
-                    <Link
-                      href="/login"
-                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10"
-                    >
-                      Jetzt starten
-                    </Link>
-                  </div>
-                  <div className="mt-3 sm:mt-0 sm:ml-3">
-                    <Link
-                      href="/about"
-                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 md:py-4 md:text-lg md:px-10"
-                    >
-                      Mehr erfahren
-                    </Link>
+                <div className="mt-8 max-w-md">
+                  <form action="/login" method="GET">
+                    <div className="flex items-center bg-white border border-gray-300 rounded-full p-1 focus-within:ring-2 focus-within:ring-blue-500 transition-all duration-200">
+                      <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="Ihre E-Mail-Adresse"
+                        className="w-full p-2 bg-transparent border-none focus:outline-none text-sm text-gray-800 placeholder-gray-500"
+                        required
+                      />
+                      <button
+                        type="submit"
+                        className="flex-shrink-0 bg-gray-800 text-white font-semibold text-sm py-2 px-5 rounded-full hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 flex items-center"
+                      >
+                        <span>Jetzt starten</span>
+                        <svg className="ml-2 w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7"></path></svg>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              
+              {/* Right side - Picture */}
+              <div className="flex items-center justify-center">
+                <div className="w-full max-w-md h-80 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center">
+                  <div className="text-white text-center p-8">
+                    <svg className="w-32 h-32 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    <h3 className="text-2xl font-bold mb-2">Professionelle Praxisverwaltung</h3>
+                    <p className="text-blue-100">Alles an einem Ort</p>
                   </div>
                 </div>
               </div>
-            </main>
+            </div>
           </div>
         </div>
-        <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-          <div className="h-56 w-full bg-gradient-to-r from-blue-400 to-blue-600 sm:h-72 md:h-96 lg:w-full lg:h-full flex items-center justify-center">
-            <div className="text-white text-center">
-              <svg className="w-32 h-32 mx-auto mb-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-              </svg>
-              <p className="text-xl font-semibold">Professionelle Praxisverwaltung</p>
+      </div>
+
+      {/* Trusted By Section */}
+      <div className="py-12 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl font-bold text-gray-900">
+                Vertrauen von führenden Praxen
+              </h2>
+            </div>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 items-center justify-items-center">
+              {[
+                'Medica GmbH',
+                'VetPro Systems',
+                'Praxis365',
+                'Healthline Solutions',
+                'VetNet AG',
+                'MedPoint Software',
+                'DocHub',
+                'TierData GmbH'
+              ].map((brand, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-center h-12 w-full max-w-[120px] grayscale hover:grayscale-0 hover:scale-110 transition-all duration-200 cursor-pointer"
+                >
+                  <div className="text-black hover:text-gray-600 font-semibold text-sm text-center">
+                    {brand}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* German Support Section */}
+      <div className="py-12 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+              Support auf Deutsch
+            </h2>
+            <p className="text-lg text-gray-600 mb-8 text-center leading-relaxed">
+              Besuchen Sie unsere deutsche Support-Webseite, um Antworten auf häufig gestellte Fragen zu erhalten und Hilfe bei der Nutzung von Tailmates zu bekommen.
+            </p>
+            <div className="text-center">
+              <Link
+                href="/support"
+                className="inline-block w-full md:w-auto bg-blue-600 text-white px-6 py-3 rounded-md text-base font-medium hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                Support kontaktieren
+              </Link>
             </div>
           </div>
         </div>
