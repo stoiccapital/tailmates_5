@@ -78,21 +78,21 @@ export default function TryFreePage() {
             <div className="text-center p-6 bg-gray-50 rounded-lg">
               <div className="text-yellow-400 text-2xl mb-4">★★★★★</div>
               <p className="text-gray-700 mb-4 italic">
-                "Endlich ein System, das wirklich für Praxen entwickelt wurde. Die Testphase hat uns überzeugt!"
+                &ldquo;Endlich ein System, das wirklich für Praxen entwickelt wurde. Die Testphase hat uns überzeugt!&rdquo;
               </p>
               <p className="text-sm text-gray-600 font-semibold">Dr. Schmidt, Zahnarztpraxis</p>
             </div>
             <div className="text-center p-6 bg-gray-50 rounded-lg">
               <div className="text-yellow-400 text-2xl mb-4">★★★★★</div>
               <p className="text-gray-700 mb-4 italic">
-                "Intuitive Bedienung und alle Funktionen, die wir brauchen. Perfekt für unsere Praxis!"
+                &ldquo;Intuitive Bedienung und alle Funktionen, die wir brauchen. Perfekt für unsere Praxis!&rdquo;
               </p>
               <p className="text-sm text-gray-600 font-semibold">Dr. Müller, Allgemeinmedizin</p>
             </div>
             <div className="text-center p-6 bg-gray-50 rounded-lg">
               <div className="text-yellow-400 text-2xl mb-4">★★★★★</div>
               <p className="text-gray-700 mb-4 italic">
-                "Die 30-tägige Testphase war der beste Weg, um das System kennenzulernen."
+                &ldquo;Die 30-tägige Testphase war der beste Weg, um das System kennenzulernen.&rdquo;
               </p>
               <p className="text-sm text-gray-600 font-semibold">Dr. Weber, Physiotherapie</p>
             </div>
